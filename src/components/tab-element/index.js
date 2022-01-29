@@ -3,13 +3,57 @@ import './tabs.scss'
 import React, {useEffect, useState} from "react";
 import {Input} from "../input";
 import './index.scss'
-import {currency, currencySign} from "../../const/util";
+import { currency, currencySign, digitCheck, MAX_DIGIT} from "../../const/util";
 
-export const TabMenu = ({ set }) => {
-    const [inputs,setInputs] = useState({})
+export const TabMenu = ({ set, values }) => {
+    const [inputs,setInputs] = useState({
+        Amount: '0'
+    })
+    const [data, dataSet] = useState({})
 
+    const [num] = getNumber(inputs['Amount']) || 0
+    console.log(num)
+    const ready = (inputs['From'] === ' ') || (inputs['To']=== ' ') || !num ||
+        !inputs['From'] || !inputs['To']
+
+    const k = countRates(data[inputs['From']],data[inputs['To']])
+
+    const onClickBtn = () => {
+        const [value, valueSign] = getNumber(values[inputs['From']])
+        const [incr,incrSign] = getNumber(values[inputs['To']])
+        const result = (num * k)+ incr
+        if (value >= num && digitCheck(result,MAX_DIGIT) ) {
+            set(prev => ({...prev,
+                [inputs['From']]: (value - num).toFixed(2) + valueSign,
+                [inputs['To']]: result.toFixed(2) + incrSign
+            }))
+        }
+
+    }
+
+    function getNumber(str) {
+        const temp = str.split('')
+        if (isNaN(+temp[temp.length-1])) {
+            const sign = temp[temp.length-1]
+            const num = Number(temp.slice(0,temp.length-1).join(''))
+            return [num,sign]
+        }
+        else {
+            const num = Number(temp.join(''))
+            const sign = ''
+            return [num,sign]
+        }
+    }
+
+    function countRates(from,to) {
+        try {
+            return (to / from).toFixed(4)
+        }
+       catch (e) {
+           return 0
+       }
+    }
     const onChange = (event) => {
-        set(prevState =>({...prevState,["USD"]: event.target.value}))
         setInputs(prevState =>({...prevState,[event.target.id]: event.target.value}) )
     }
     const onSwitch = () => {
@@ -23,20 +67,22 @@ export const TabMenu = ({ set }) => {
         }
         else  return ''
     }
-    const ready = (inputs['From'] === ' ') || (inputs['To']=== ' ') || !Number(inputs['Amount']) ||
-        !inputs['From'] || !inputs['To']
 
-/*    const [data, dataSet] = useState(null)
+
     useEffect(() =>
     {
         const fetchData = async () =>{
             const data = await fetch('https://www.cbr-xml-daily.ru/latest.js')
             const response = await data.json()
-            dataSet(response)
+            response.rates['RUB'] = 1
+            dataSet(response.rates)
         }
         fetchData()
-    },[])*/
-
+    },[])
+    useEffect(() => {
+        const sign = findSign("From")
+        setInputs(prev => ({...prev,Amount: num + sign}))
+    },[inputs["From"]])
    return (
         <Tabs>
             <TabList>
@@ -47,31 +93,52 @@ export const TabMenu = ({ set }) => {
             <TabPanel>
                 <div>
                     <div className='converter'>
-                        <Input onChang={onChange} label='Amount'  opacity={1} sign={findSign("From")} />
-                        <Input watch={[inputs['From']]} onChang={onChange} label='From'  opacity={1} sign={''}  select={true} option={[' ',...currency]}/>
+                        <Input
+                               setInput={setInputs}
+                               onChang={onChange}
+                               label='Amount'
+                               opacity={1}
+                               sign={findSign("From")} >{inputs['Amount']}</Input>
+                        <Input
+                            setInput={setInputs}
+                            watch={[inputs['From']]}
+                            onChang={onChange} label='From'
+                            opacity={1}
+                            sign={''}
+                            select={true}
+                            option={[' ',...currency]} > </Input>
                         <img onClick={onSwitch} className='swap' src={'./swap icon.svg'} alt='swap icon'/>
-                        <Input watch={[inputs['To']]} onChang={onChange} label='To'  opacity={1} sign={''} select={true} option={[' ',...currency]}/>
+                        <Input
+                            setInput={setInputs}
+                            watch={[inputs['To']]}
+                            onChang={onChange}
+                            label='To'
+                            opacity={1}
+                            sign={''}
+                            select={true}
+                            option={[' ',...currency]}> </Input>
 
                     </div>
                     <div className='result'>
                         <label className='input'>
                             <span>Total</span>
-                            <output>{!ready? 5 * inputs['Amount'] + findSign("To"): ''}</output>
+                            <output>{!ready ? (num*k).toFixed(2) + findSign('To'): ' '}</output>
                         </label>
                         <p>
                             <a href="https://www.cbr-xml-daily.ru/">Курсы валют, API</a>
                             <br/> {
                             !ready ?
                                 <>
-                                    1 {inputs["From"]}  = 113.912  {inputs["To"]}
+                                    1 {inputs["From"]}  = {k}  {inputs["To"]}
                                     <br/>
-                                    1 {inputs["To"]} = 0.00877874  {inputs["From"]}
+                                    1 {inputs["To"]} = {countRates(data[inputs['To']],data[inputs['From']])}  {inputs["From"]}
                                 </> : ''
                         }
 
                         </p>
                         <button disabled={ready}
-                                className='convert-btn'> Convert</button>
+                                className='convert-btn'
+                                onClick={onClickBtn}> Convert</button>
                     </div>
 
                 </div>
