@@ -30,8 +30,8 @@
 .convert-btn {
   padding: 18px 34px;
   color: white;
-  border: none;
   cursor: pointer;
+  border: 1px solid #2AAEF8;
   font-family: Roboto,sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -39,6 +39,7 @@
   line-height: 21px;
   background: #2AAEF8;
   border-radius: 12px;
+  box-sizing: border-box;
   &:hover {
     background: #0679E3;
     color: white;
@@ -50,7 +51,7 @@
   &:disabled {
     color: rgba(0, 0, 0, 0.4);
     background: #FFFFFF;
-    border: 1px solid #2AAEF8;
-    box-sizing: border-box;
+
+
   }
 }

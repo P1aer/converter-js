@@ -9,30 +9,40 @@ export const TabMenu = ({ set, values }) => {
     const [inputs,setInputs] = useState({
         Amount: '0'
     })
+    const [isUpdate, setUpdate] = useState(false)
     const [data, dataSet] = useState({})
 
     const [num] = getNumber(inputs['Amount']) || 0
-    console.log(num)
     const ready = (inputs['From'] === ' ') || (inputs['To']=== ' ') || !num ||
         !inputs['From'] || !inputs['To']
 
     const k = countRates(data[inputs['From']],data[inputs['To']])
 
-    const onClickBtn = () => {
+    const onClickBtn = async () => {
         const [value, valueSign] = getNumber(values[inputs['From']])
         const [incr,incrSign] = getNumber(values[inputs['To']])
         const result = (num * k)+ incr
-        if (value >= num && digitCheck(result,MAX_DIGIT) ) {
-            set(prev => ({...prev,
-                [inputs['From']]: (value - num).toFixed(2) + valueSign,
-                [inputs['To']]: result.toFixed(2) + incrSign
-            }))
+
+            if (value >= num && digitCheck(result,MAX_DIGIT) ) {
+                try {
+                setUpdate(true)
+                await set({
+                    [inputs['From']]: (value - num).toFixed(2) + valueSign,
+                    [inputs['To']]: result.toFixed(2) + incrSign
+                },true)
+                }
+                catch (e) {
+                    alert(e.message)
+                }
+                finally {
+                    setUpdate(false)
+                }
         }
 
     }
 
     function getNumber(str) {
-        const temp = str.split('')
+        const temp = str.toString().split('')
         if (isNaN(+temp[temp.length-1])) {
             const sign = temp[temp.length-1]
             const num = Number(temp.slice(0,temp.length-1).join(''))
@@ -68,7 +78,6 @@ export const TabMenu = ({ set, values }) => {
         else  return ''
     }
 
-
     useEffect(() =>
     {
         const fetchData = async () =>{
@@ -83,6 +92,10 @@ export const TabMenu = ({ set, values }) => {
         const sign = findSign("From")
         setInputs(prev => ({...prev,Amount: num + sign}))
     },[inputs["From"]])
+
+    const setValue = (objVal, bool = false) =>{
+        setInputs(prev => ({...prev,...objVal }))
+    }
    return (
         <Tabs>
             <TabList>
@@ -94,13 +107,13 @@ export const TabMenu = ({ set, values }) => {
                 <div>
                     <div className='converter'>
                         <Input
-                               setInput={setInputs}
+                               setInput={setValue}
                                onChang={onChange}
                                label='Amount'
                                opacity={1}
                                sign={findSign("From")} >{inputs['Amount']}</Input>
                         <Input
-                            setInput={setInputs}
+                            setInput={setValue}
                             watch={[inputs['From']]}
                             onChang={onChange} label='From'
                             opacity={1}
@@ -109,7 +122,7 @@ export const TabMenu = ({ set, values }) => {
                             option={[' ',...currency]} > </Input>
                         <img onClick={onSwitch} className='swap' src={'./swap icon.svg'} alt='swap icon'/>
                         <Input
-                            setInput={setInputs}
+                            setInput={setValue}
                             watch={[inputs['To']]}
                             onChang={onChange}
                             label='To'
@@ -136,7 +149,7 @@ export const TabMenu = ({ set, values }) => {
                         }
 
                         </p>
-                        <button disabled={ready}
+                        <button disabled={ready|| isUpdate}
                                 className='convert-btn'
                                 onClick={onClickBtn}> Convert</button>
                     </div>

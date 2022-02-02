@@ -5,5 +5,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 1920px;
+
+  div[id=root] {
+    height: inherit;
+    .App {
+      height: inherit;
+    }
+  }
 }
+
 

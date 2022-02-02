@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import './input.scss'
 import {addNums, currencySign, inputValidateNumbers, MAX_DIGIT} from "../../const/util";
 
@@ -12,6 +12,7 @@ export const Input = (
         opacity='.6',
         sign='$',
         select = false,
+        disabled = false,
         option = [],
         watch = []
 }) => {
@@ -21,7 +22,7 @@ export const Input = (
         const arr = val.split('')
         if (currencySign.includes(arr[arr.length-1]) ){
             const temp = arr.slice(0,arr.length-1)
-            setInput(prev => ({...prev,[label]:temp.join('')}))
+            setInput({[label]:temp.join('')})
         }
     }
     const outFocus = (ev) => {
@@ -30,14 +31,17 @@ export const Input = (
         if (!currencySign.includes(arr[arr.length-1]) ){
             addNums(arr)
             arr.push(sign)
-            setInput(prev => ({...prev,[label]:arr.join('')}))
+            setInput({[label]:arr.join('')})
         }
 
     }
-    const onChange = (ev) => {
+    const onChange = async (ev) => {
+        if (disabled) {
+            return
+        }
         if (inputValidateNumbers(ev)) {
             onChang(ev)
-            setInput(prev => ({...prev,[label]:ev.target.value}))
+           await setInput({[label]:ev.target.value},true)
         }
     }
 
@@ -58,7 +62,7 @@ export const Input = (
                             }
                         </select>
                         :
-                        <input disabled={read}
+                        <input disabled={ read}
                                maxLength={MAX_DIGIT}
                                id={label}
                                type={'text'}
