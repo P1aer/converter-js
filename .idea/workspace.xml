@@ -2,23 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5592a57e-a755-4ead-9857-8f3a89216cad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/auth page/auth-page.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/auth page/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/loader/loader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/loader/loader.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/data.slice.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/redux/user.slice.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/tab-element/tabs/convert.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/tab-element/tabs/history.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/tab-element/tabs/send.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/redux/transaction.slice.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/input/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/input/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loader/loader.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loader/loader.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/main-page/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/main-page/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tab-element/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tab-element/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/tab-element/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tab-element/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/const/util.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/const/util.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/redux/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/redux/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,6 +58,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Новые Проекты\converter-js\src\redux\slices" />
       <recent name="D:\Новые Проекты\converter-js\src" />
     </key>
   </component>
@@ -106,7 +100,10 @@
       <workItem from="1643713611940" duration="12061000" />
       <workItem from="1643746760836" duration="592000" />
       <workItem from="1643751566454" duration="6026000" />
-      <workItem from="1643793048206" duration="15013000" />
+      <workItem from="1643793048206" duration="15590000" />
+      <workItem from="1643873186995" duration="8890000" />
+      <workItem from="1643899401049" duration="1784000" />
+      <workItem from="1643996261856" duration="17202000" />
     </task>
     <servers />
   </component>
@@ -122,22 +119,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="695" y="305" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1643727857052" />
-    <state width="1882" height="281" key="GridCell.Tab.0.bottom" timestamp="1643798972081">
+    <state width="1899" height="283" key="GridCell.Tab.0.bottom" timestamp="1643892791937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1882" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1643798972081" />
-    <state width="1882" height="281" key="GridCell.Tab.0.center" timestamp="1643798972081">
+    <state width="1899" height="283" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1643892791937" />
+    <state width="1899" height="283" key="GridCell.Tab.0.center" timestamp="1643892791937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1882" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1643798972081" />
-    <state width="1882" height="281" key="GridCell.Tab.0.left" timestamp="1643798972081">
+    <state width="1899" height="283" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1643892791937" />
+    <state width="1899" height="283" key="GridCell.Tab.0.left" timestamp="1643892791937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1882" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1643798972081" />
-    <state width="1882" height="281" key="GridCell.Tab.0.right" timestamp="1643798972081">
+    <state width="1899" height="283" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1643892791937" />
+    <state width="1899" height="283" key="GridCell.Tab.0.right" timestamp="1643892791937">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1882" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1643798972081" />
+    <state width="1899" height="283" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1643892791937" />
     <state x="461" y="164" key="SettingsEditor" timestamp="1643798748607">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

@@ -3,15 +3,16 @@ import React, { useState} from "react";
 import {Header} from "../header";
 import {Input} from "../input";
 import {TabMenu} from "../tab-element";
-import {currency, currencySign} from "../../const/util";
-import {useSelector} from "react-redux";
+import {currency, currencySign, getNumber} from "../../const/util";
+import {useDispatch, useSelector} from "react-redux";
 import {doc,updateDoc} from "firebase/firestore";
 import {db} from "../../index";
+import {setDataWallet} from "../../redux/data.slice";
 
 export const MainPage = ({name, id}) => {
     const values = useSelector(state => state.wallet.data)
     const tempVal= {...values}
-
+    const dispatch = useDispatch()
     for (let key in values) {
         tempVal[key] = `${String(values[key])}${currencySign[currency.findIndex((elem) => elem === key)]}`
     }
@@ -22,17 +23,14 @@ export const MainPage = ({name, id}) => {
         try {
             if (save){
                 const docRef = doc(db,'users',id)
-                const vals = {...inputs,...valObj}
-                for (let key in vals) {
-                    const temp= vals[key].toString()
-                    vals[key] = Number(temp.split('').slice(0,temp.length-1).join(''))
-                }
+                const vals = getNumber({...inputs,...valObj})
                 setUpdate(true)
                 await updateDoc(docRef, {
                     currency: {
                         ...vals,
                     }
                 })
+                dispatch(setDataWallet(vals))
             }
         }
         catch (e) {
