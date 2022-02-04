@@ -6,6 +6,7 @@ export const Convert = ({set, values})=> {
     const [inputs,setInputs] = useState({
         Amount: '0'
     })
+    const [message, setMessage] = useState('')
     const [isUpdate, setUpdate] = useState(false)
     const [data, dataSet] = useState({})
 
@@ -19,8 +20,15 @@ export const Convert = ({set, values})=> {
         const [value, valueSign] = getNumber(values[inputs['From']])
         const [incr,incrSign] = getNumber(values[inputs['To']])
         const result = (num * k)+ incr
-
-        if (value >= num && digitCheck(result,MAX_DIGIT) ) {
+        setMessage('')
+        if (!(value >= num) ) {
+            setMessage('Not enough money!')
+            return
+        }
+        if (!digitCheck(result,MAX_DIGIT)) {
+            setMessage(`one money field can only  handle ${MAX_DIGIT} digit number`)
+            return
+        }
             try {
                 setUpdate(true)
                 await set({
@@ -34,7 +42,6 @@ export const Convert = ({set, values})=> {
             finally {
                 setUpdate(false)
             }
-        }
 
     }
 
@@ -126,6 +133,7 @@ export const Convert = ({set, values})=> {
                 <label className='input'>
                     <span>Total</span>
                     <output>{!ready ? (num*k).toFixed(2) + findSign('To'): ' '}</output>
+                    <span style={{textAlign:'center',position:'absolute',bottom:"-50%",width:'100%'}}> {message}</span>
                 </label>
                 <p>
                     <a href="https://www.cbr-xml-daily.ru/">Курсы валют, API</a>

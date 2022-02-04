@@ -44,7 +44,7 @@ export const Send = ({values, set}) => {
            }
             if (!digitCheck(docSnap.data().currency[value.Currency] + Number(value.Amount),
                 MAX_DIGIT)){
-                setValue(prev => ({...prev,message:'Receiver will have to much money!'}))
+                setValue(prev => ({...prev,message:'Receiver will have too much money!'}))
                 return
             }
             const myDoc = doc(db,'users',id)
