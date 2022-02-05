@@ -6,9 +6,9 @@ We use cutting edge technology to know any changes in Rates
 ## Authorization included
 Use authorization to secure your wallet and money from stealling
 ## Send Function
-You can send money to other users, u onlu need to know his unique id
+You can send money to other users, only thing needed is other user's unique id
 ## Watch and Safe
-All your transaction info allways in your hands
+All your transactions info allways in your hands
 ## Design
 [brand new design](https://www.figma.com/file/4tO0FdSUMLshMZbl59y2if/Converter?node-id=0%3A1)
 ## Hoisting 
