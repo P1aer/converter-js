@@ -1,5 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+.idea
+.firebase
 # dependencies
 /node_modules
 /.idea
@@ -10,6 +11,8 @@
 /coverage
 
 # production
+
+
 /build
 
 # misc
